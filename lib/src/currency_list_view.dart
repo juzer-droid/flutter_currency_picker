@@ -81,10 +81,14 @@ class _CurrencyListViewState extends State<CurrencyListView> {
   late List<Currency> _currencyList;
   List<Currency>? _favoriteList;
 
+  FocusNode _focusNode = FocusNode();
+
   TextEditingController? _searchController;
 
   @override
   void initState() {
+    _focusNode.requestFocus();
+
     _searchController = TextEditingController();
 
     _currencyList = _currencyService.getAll();
@@ -122,6 +126,7 @@ class _CurrencyListViewState extends State<CurrencyListView> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           child: widget.showSearchField
               ? TextField(
+                  focusNode: _focusNode,
                   controller: _searchController,
                   decoration: InputDecoration(
                     labelText: widget.searchHint ?? "Search",
